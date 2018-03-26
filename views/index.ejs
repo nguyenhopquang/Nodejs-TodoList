@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Todo list demo</title>
+      <link rel='stylesheet' href='/stylesheets/style.css' />
+      <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+      <link rel="stylesheet" href="/stylesheets/bootstrap-theme.css">
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+      <script src="/javascripts/bootstrap.js"></script>
+
+  </head>
+  <body>
+  <script>
+
+      var str="";
+      function submitBTN() {
+          var name = document.getElementById("name").value;
+          document.getElementById("form-id").submit(); //form submission
+      }
+
+  </script>
+  <div class="container">
+      <div class="row">
+          <div class="text-center">
+              <h1 class="text-danger modal-title">Todos app</h1>
+          </div>
+          <div class="col-xs-12" style="height:50px;"></div>
+          <form id="form-id" style="text-align: center" action="/list" method="post">
+              <input id="name" class="input-lg" type="text" name="name" placeholder="What to do today?">
+              <button id="submit-btn" onclick="submitBTN()">submit</button>
+          </form>
+
+      </div>
+
+      <div id="todolist"></div>
+      <table class="table table-bordered table-responsive table-hover" >
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Content</th>
+              </tr>
+          </thead>
+          <tbody>
+              <% todolist.forEach(function (list) { %>
+              <tr>
+                  <td><%= list.id %></td>
+                  <td><%= list.name %></td>
+                  <td>
+                      <form id="id-<%= list.id%>" method="delete" action="/list/<%=list.id%>" >
+
+                          <button onclick="document.getElementById('id-<%=list.id%>').submit();"> submit </button>
+
+                      </form>
+                  </td>
+                  <td><button class="btn btn-danger">DELETE</button> </td>
+              </tr>
+              <% }) %>
+          </tbody>
+      </table>
+  </div>
+  </body>
+</html>
